@@ -1,0 +1,237 @@
+﻿<Modal Visible="@IsVisibled">
+    <ModalBackdrop />
+    <ModalContent Size="ModalSize.Default">
+        <ModalHeader>
+            <ModalTitle>查询</ModalTitle>
+            <CloseButton Clicked="@HideModal" Centered="true"></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <!-- 查询项目 -->
+            <Row>
+                <Blazorise.Column>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <AddonLabel>查询项目</AddonLabel>
+                        </Addon>
+                        <Addon AddonType="AddonType.Body">
+                            <Select TValue="string">
+                                @*<SelectItem Value="1">1</SelectItem>
+                                <SelectItem Value="2">2</SelectItem>
+                                <SelectItem Value="3">3</SelectItem>
+                                <SelectItem Value="4">4</SelectItem>*@
+                                @foreach (TBInfoModel item in items)
+                                {
+                                    <SelectItem Value="@string.Format("{0},{1},{2}",item.fdName,item.fdType,item.fdInfo)">@item.fdInfo</SelectItem>
+                                }
+                            </Select>
+                        </Addon>
+                    </Addons>
+                </Blazorise.Column>
+            </Row>
+            <!-- 查询条件 -->
+            <br />
+            <Row>
+                <Blazorise.Column>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <AddonLabel>查询条件</AddonLabel>
+                        </Addon>
+                        <Addon AddonType="AddonType.Body">
+                            <Select TValue="int">
+                                <SelectItem Value="1">等于</SelectItem>
+                                <SelectItem Value="2">大于</SelectItem>
+                                <SelectItem Value="3">小于</SelectItem>
+                                <SelectItem Value="4">不等于</SelectItem>
+                            </Select>
+                        </Addon>
+                    </Addons>
+                </Blazorise.Column>
+            </Row>
+
+            <!-- 查询内容=String -->
+            <br style="display:none" />
+            <Row Style="display:none">
+                <Blazorise.Column>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <AddonLabel>查询内容</AddonLabel>
+                        </Addon>
+                        <Addon AddonType="AddonType.Body">
+                            <TextEdit Placeholder="请输入查询内容" />
+                        </Addon>
+                    </Addons>
+                </Blazorise.Column>
+            </Row>
+
+            <!-- 查询内容=Number -->
+            <br Style="display:none;" />
+            <Row Style="display:none;">
+                <Blazorise.Column>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <AddonLabel>查询内容</AddonLabel>
+                        </Addon>
+                        <Addon AddonType="AddonType.Body">
+                            <NumericEdit Value="0" Decimals="2" />
+                        </Addon>
+                    </Addons>
+                </Blazorise.Column>
+            </Row>
+
+            <!-- 查询内容=bool -->
+            <br/>
+            <Row>
+                <Blazorise.Column>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <AddonLabel>查询内容</AddonLabel>
+                        </Addon>
+                        <Addon AddonType="AddonType.Body">
+                            <Select TValue="int">
+                                <SelectItem Value="0">是</SelectItem>
+                                <SelectItem Value="1">否</SelectItem>
+                            </Select>
+                        </Addon>
+                    </Addons>
+                </Blazorise.Column>
+            </Row>
+            <!-- 查询内容=Date -->
+            <br />
+            <Row>
+                <Blazorise.Column>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <Dropdown>
+                                <DropdownToggle Color="Color.Primary">选日期</DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem @onclick="SelectToday">今日</DropdownItem>
+                                    <DropdownItem @onclick="SelectYesterday">昨日</DropdownItem>
+                                    <DropdownDivider />
+                                    <DropdownItem @onclick="SelectThisMonth">本月</DropdownItem>
+                                    <DropdownItem @onclick="SelectLastMonth">上月</DropdownItem>
+                                    <DropdownDivider />
+                                    <DropdownItem @onclick="SelectThisWeek">本周</DropdownItem>
+                                    <DropdownItem @onclick="SelectLastWeek">上周</DropdownItem>
+                                    <DropdownDivider />
+                                    <DropdownItem @onclick="SelectThisYear">今年</DropdownItem>
+                                    <DropdownItem @onclick="SelectLastYear">去年</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </Addon>
+                        <Addon AddonType="AddonType.Body">
+                            <DateEdit TValue="DateTime?" @bind-Date="dtStart" />
+                            <AddonLabel>至</AddonLabel>
+                            <DateEdit TValue="DateTime?" @bind-Date="dtEnd" />
+                        </Addon>
+                    </Addons>
+                </Blazorise.Column>
+            </Row>
+
+            <!-- 并且、或者、清除 按钮组-->
+            <br />
+            <Row>
+                <Blazorise.Column>
+                    <Buttons>
+                        <Button Color="Color.Success">并且</Button>
+                        <Button Color="Color.Warning">或者</Button>
+                        <Button Color="Color.Danger">清除</Button>
+                    </Buttons>
+                </Blazorise.Column>
+            </Row>
+            <!-- 显示查询条件及查询语句 -->
+            <br />
+            <Row>
+                <Blazorise.Column>
+                    <MemoEdit Rows="2" ReadOnly="true" Disabled="false" />
+                </Blazorise.Column>
+            </Row>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Clicked="@HideModal">查询</Button>
+            <Button Color="Color.Primary" Clicked="@HideModal">取消</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<!----------------------------------- C#代码区 ----------------------------------------->
+@code {
+
+    //是否显示查询窗口 Blazorise.ModalSize.Size
+    [Parameter]
+    public bool IsVisibled { get; set; } = false;
+    [Parameter]
+    public EventCallback<bool> IsVisibledChanged { get; set; }
+
+    //关闭查询窗口
+    private void HideModal()
+    {
+        IsVisibled = false;
+    }
+
+    #region 日期快捷选择
+    //日期快捷选择
+    private DateTime? dtStart { get; set; } = DateTime.Now;
+    private DateTime? dtEnd { get; set; } = DateTime.Now;
+
+    private void SelectToday()
+    {
+        this.dtStart = DateTime.Now;
+        this.dtEnd = DateTime.Now;
+    }
+    private void SelectYesterday()
+    {
+        // DateTime.Now.AddDays(-1)
+        this.dtStart = DateTime.Now.AddDays(-1);
+        this.dtEnd = DateTime.Now.AddDays(-1);
+    }
+    private void SelectThisMonth()
+    {
+        //DateTime.Now.AddDays(1 - DateTime.Now.Day).Date
+        this.dtStart = DateTime.Now.AddDays(1 - DateTime.Now.Day).Date;
+        this.dtEnd = DateTime.Now.AddDays(1 - DateTime.Now.Day).Date.AddMonths(1).AddDays(-1);
+    }
+    private void SelectLastMonth()
+    {
+        this.dtStart = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1);
+        this.dtEnd = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddDays(-1);
+    }
+    private void SelectThisWeek()
+    {
+        this.dtStart = DateTime.Now.AddDays(1 - Convert.ToInt32(DateTime.Now.DayOfWeek.ToString("d")));
+        this.dtEnd = DateTime.Now.AddDays(7 - Convert.ToInt32(DateTime.Now.DayOfWeek.ToString("d")));
+    }
+    private void SelectLastWeek()
+    {
+        this.dtStart = DateTime.Now.AddDays(1 - Convert.ToInt32(DateTime.Now.DayOfWeek.ToString("d")) - 7);
+        this.dtEnd = DateTime.Now.AddDays(7 - Convert.ToInt32(DateTime.Now.DayOfWeek.ToString("d")) - 7);
+    }
+    private void SelectThisYear()
+    {
+        this.dtStart = DateTime.Now.AddDays(1 - DateTime.Now.DayOfYear);
+        this.dtEnd = DateTime.Now.AddDays(1 - DateTime.Now.DayOfYear).AddYears(1).AddDays(-1);
+    }
+    private void SelectLastYear()
+    {
+        this.dtStart = DateTime.Now.AddDays(1 - DateTime.Now.DayOfYear).AddYears(-1);
+        this.dtEnd = DateTime.Now.AddDays(1 - DateTime.Now.DayOfYear).AddDays(-1);
+    }
+    #endregion
+
+    #region 测试项目查询的Select填装
+    IEnumerable<TBInfoModel> items = new List<TBInfoModel>(){
+
+        new TBInfoModel(){fdName="test_name",fdType="string",fdInfo="测试名称"},
+        new TBInfoModel(){fdName="test_value",fdType="string",fdInfo="测试内容"},
+        new TBInfoModel(){fdName="test_num",fdType="number",fdInfo="测试数值"},
+        new TBInfoModel(){fdName="test_date",fdType="string",fdInfo="测试日期"},
+        new TBInfoModel(){fdName="test_flag",fdType="bool",fdInfo="停用标识"}
+    };
+    #endregion
+
+    #region 查询语句
+    [Parameter]
+    public string StrSqlWhere { get; set; } = "";
+    [Parameter]
+    public EventCallback<string> StrSqlWhereChanged { get; set; }
+    #endregion
+}

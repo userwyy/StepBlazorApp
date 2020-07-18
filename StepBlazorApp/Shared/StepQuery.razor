@@ -1,0 +1,30 @@
+﻿<Modal Visible="@ModalVisible">
+    <ModalBackdrop />
+    <ModalContent Size="ModalSize.Large" Centered="true">
+        <ModalHeader>
+            <ModalTitle>查询</ModalTitle>
+            <CloseButton Clicked="@HideModal" Centered="true"></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            内容 ----- 测试
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Clicked="@HideModal">保存</Button>
+            <Button Color="Color.Secondary" Clicked="@HideModal">关闭</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    //是否显示查询窗口 Blazorise.ModalSize.Size
+    [Parameter]
+    public bool ModalVisible { get; set; } = false;
+    [Parameter]
+    public EventCallback<bool> ModalVisibleChanged { get; set; }
+
+    //关闭查询窗口
+    private void HideModal()
+    {
+        ModalVisible = false;
+    }
+}

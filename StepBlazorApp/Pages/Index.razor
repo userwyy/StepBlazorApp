@@ -1,0 +1,24 @@
+﻿@page "/"
+<Row>
+    <Column>
+        <Card Margin="Margin.Is4.OnY">
+            <CardHeader>
+                <CardTitle>查询测试</CardTitle>
+            </CardHeader>
+            <CardBody>
+                <Button Color="Color.Primary" Clicked="@ShowQueryModal">查询</Button>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>
+<!-- 查询组件 -->
+<StepQueryModal @bind-IsVisibled="_isvisibled"></StepQueryModal>
+<!----------------------------------- C#代码区 ----------------------------------------->
+@code{
+    //显示查询框
+    private bool _isvisibled = false;
+    private void ShowQueryModal()
+    {
+        _isvisibled = true;
+    }
+}

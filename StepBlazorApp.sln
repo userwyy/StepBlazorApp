@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StepBlazorApp", "StepBlazorApp\StepBlazorApp.csproj", "{60FBCDC5-0750-4D6F-A4A6-62F0CEE67582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StepBlazorApp.Model", "StepBlazorApp.Model\StepBlazorApp.Model.csproj", "{E16F3101-6BDC-4729-8277-97D2E6862A3E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60FBCDC5-0750-4D6F-A4A6-62F0CEE67582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60FBCDC5-0750-4D6F-A4A6-62F0CEE67582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60FBCDC5-0750-4D6F-A4A6-62F0CEE67582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60FBCDC5-0750-4D6F-A4A6-62F0CEE67582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E16F3101-6BDC-4729-8277-97D2E6862A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16F3101-6BDC-4729-8277-97D2E6862A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16F3101-6BDC-4729-8277-97D2E6862A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E16F3101-6BDC-4729-8277-97D2E6862A3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4E84355-47D9-4004-A57E-8D78D276C289}
+	EndGlobalSection
+EndGlobal
